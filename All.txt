@@ -1,0 +1,406 @@
+//Home
+#include<stdio.h>
+#include<conio.h>
+#include<graphics.h>
+
+int main() {
+  int gd=DETECT,gm;
+  initgraph(&gd, &gm, "C:\\TURBOC3\\BGI");
+
+  //Sun
+  setcolor(YELLOW);
+  circle(30, 50, 30);
+  setfillstyle(1, YELLOW);
+  floodfill(30, 50, YELLOW);
+
+  //Home
+  setcolor(6);
+  rectangle(100, 200, 500, 450);
+  setfillstyle(9, 6);
+  floodfill(101,201, 6);
+  line(250, 200, 250, 450);
+
+  //Home Roof
+  setcolor(8);
+  line(100, 200, 175, 50);
+  line(175, 50, 250, 200);
+  line(425, 50, 500, 200);
+  line(175, 50, 425, 50);
+  setfillstyle(7, 8);
+  floodfill(101, 51, 8);
+
+
+  //Door
+  setcolor(5);
+  rectangle(125, 300, 225, 450);
+  setfillstyle(1, 5);
+  floodfill(126, 301, 5);
+
+  //Window
+  setcolor(BLUE);
+  rectangle(300, 300, 400, 375);
+  setfillstyle(1, BLUE);
+  floodfill(350, 350, BLUE);
+
+  //Ground
+  /*setcolor(GREEN);
+  line(0, 350, 100, 350);
+  line(500, 350, 600, 350);
+  setfillstyle(1, GREEN);
+  floodfill(50,350, GREEN);*/
+
+  getch();
+  cleardevice();
+  closegraph();
+  return 0;
+}
+
+
+//Moving circle in row
+#include<stdio.h>
+#include<conio.h>
+#include<graphics.h>
+
+int main() {
+  int gd=DETECT, gm;
+  int x=100, y=100, r=20;
+  //int maxx = getmaxx();
+
+  initgraph(&gd, &gm, "C:\\TURBOC3\\BGI");
+
+  while(x<600) {
+    cleardevice();
+    circle(x, y, r);
+    line(100, 120, 600, 120);
+    x += 5;
+    delay(50);
+  }
+
+  while(x>100) {
+    cleardevice();
+    circle(x,y,r);
+    line(100, 120, 600, 120);
+    x -= 5;
+    delay(50);
+  }
+
+  getch();
+  closegraph();
+  cleardevice();
+  return 0;
+}
+
+
+//5circles
+#include<stdio.h>
+#include<conio.h>
+#include<graphics.h>
+
+int main() {
+  int gd=DETECT, gm;
+  int i, r=20;
+  int color=1;
+  initgraph(&gd, &gm, "C:\\TURBOC3\\BGI");
+
+  for(i=0; i<5; i++) {
+    circle(200, 200, r);
+    setfillstyle(i, ++color);
+    floodfill(200, 200-r+5, WHITE);
+    r += 20;
+  }
+
+  getch();
+  closegraph();
+  cleardevice();
+  return 0;
+}
+
+
+//face
+#include<stdio.h>
+#include<conio.h>
+#include<graphics.h>
+
+void face() {
+  setcolor(14);
+  circle(300, 200, 100);
+  setfillstyle(1, 14);
+  floodfill(301, 201, 14);
+
+  setcolor(1);
+  circle(250, 170, 10);
+  setfillstyle(1, 1);
+  floodfill(250, 170, 1);
+
+  circle(350, 170, 10);
+  setfillstyle(1, 1);
+  floodfill(350, 170, 1);
+}
+
+void happy() {
+  face();
+  ellipse(300, 230, 180, 360, 40, 20);
+}
+
+void sad() {
+  face();
+  ellipse(300, 230, 0, 180, 40, 20);
+}
+
+void tears(int x, int y) {
+  int i;
+  for(i=0; i<5; ++i) {
+    setcolor(BLUE);
+    circle(x, y, 3); // Draw a blue circle as tear
+    floodfill(x, y, BLUE); // Fill the circle with blue color
+    delay(500); // Reduce the delay for smoother animation
+    setcolor(WHITE);
+    circle(x, y, 3); // Erase the circle by drawing a white circle
+    floodfill(x, y, WHITE); // Fill the circle with white color
+    y += 10;
+  }
+
+}
+
+int main() {
+  int gd=DETECT, gm;
+  initgraph(&gd, &gm, "C:\\TURBOC3\\BGI");
+
+  happy();
+  delay(3000);
+  cleardevice();
+  sad();
+  tears(250, 200);
+  tears(350, 200);
+
+  getch();
+  closegraph();
+  cleardevice();
+  return 0;
+}
+
+
+//Pie
+#include<stdio.h>
+#include<conio.h>
+#include<graphics.h>
+
+int main() {
+  int gd=DETECT, gm;
+  int x, y;
+  initgraph(&gd, &gm, "C:\\TURBOC3\\BGI");
+
+  x = getmaxx()/2;
+  y = getmaxy()/2;
+  printf("%d %d", x, y);
+
+  setfillstyle(1,4);
+  pieslice(x,y,0, 25, 110);
+  setfillstyle(1,5);
+  pieslice(x,y, 25, 155, 110);
+  setfillstyle(1,7);
+  pieslice(x,y,155, 250, 110);
+  setfillstyle(1,9);
+  pieslice(x,y,250, 360, 110);
+
+  getch();
+  closegraph();
+  cleardevice();
+  return 0;
+}
+
+
+//moving ball
+#include <stdio.h>
+#include <graphics.h>
+
+int main() {
+    int gd = DETECT, gm;
+    int x = 100, y = 100; // Initial position of the ball
+    int dx = 5, dy = 3; // Incremental changes in x and y positions
+
+    initgraph(&gd, &gm, "C:\\TURBOC3\\BGI");
+
+    while (!kbhit()) { // Loop until a key is pressed
+	// Clear previous frame
+	cleardevice();
+
+	// Draw the ball at current position
+	setcolor(YELLOW);
+	setfillstyle(SOLID_FILL, YELLOW);
+	fillellipse(x, y, 10, 10);
+
+	// Update the position of the ball
+	x += dx; // Increment x coordinate
+	y += dy; // Increment y coordinate
+
+	// Check for collision with screen boundaries
+	if (x <= 10 || x >= getmaxx() - 10) {
+	    dx = -dx; // Reverse x direction if collision with left or right boundary
+	}
+	if (y <= 10 || y >= getmaxy() - 10) {
+	    dy = -dy; // Reverse y direction if collision with top or bottom boundary
+	}
+
+	delay(50); // Delay to control the speed of animation
+    }
+
+    closegraph(); // Close graphics mode
+    return 0;
+}
+
+
+
+//horizontal & virtical
+#include<stdio.h>
+#include<conio.h>
+#include<graphics.h>
+
+void vertical() {
+  bar3d(100, 200, 150, 300, 30, 1);
+  bar3d(200, 50, 250, 300, 30, 1);
+  bar3d(300, 100, 350, 300, 30, 1);
+  bar3d(400, 150, 450, 300, 30, 1);
+
+  outtextxy(125, 180, "40%");
+  outtextxy(225, 30, "80%");
+  outtextxy(325, 80, "65%");
+  outtextxy(425, 130, "50%");
+}
+
+void horizontal() {
+    bar3d(100, 50, 200, 100, 30, 1);
+    bar3d(100, 150, 250, 200, 30, 1);
+    bar3d(100, 250, 300, 300, 30, 1);
+    bar3d(100, 350, 350, 400, 30, 1);
+
+    outtextxy(220, 60, "20%");
+    outtextxy(275, 160, "30%");
+    outtextxy(325, 260, "50%");
+    outtextxy(375, 360, "60%");
+}
+
+int main() {
+  int gd=DETECT, gm;
+  initgraph(&gd, &gm, "C:\\TURBOC3\\BGI");
+
+  vertical();
+  delay(3000);
+  cleardevice();
+  horizontal();
+
+  getch();
+  closegraph();
+  cleardevice();
+  return 0;
+}
+
+
+
+//font style
+#include <stdio.h>
+#include <graphics.h>
+
+int main() {
+    int gd = DETECT, gm;
+    initgraph(&gd, &gm, "C:\\TURBOC3\\BGI");
+
+    // Set different font styles
+    settextstyle(DEFAULT_FONT, HORIZ_DIR, 1);
+    outtextxy(100, 100, "Default Font");
+
+    settextstyle(TRIPLEX_FONT, HORIZ_DIR, 2);
+    outtextxy(100, 150, "Triplex Font");
+
+    settextstyle(SMALL_FONT, HORIZ_DIR, 3);
+    outtextxy(100, 200, "Small Font");
+
+    settextstyle(SANS_SERIF_FONT, HORIZ_DIR, 4);
+    outtextxy(100, 250, "Sans Serif Font");
+
+    // Set different line styles
+    setlinestyle(SOLID_LINE, 0, 1);
+    line(300, 100, 400, 100);
+    settextstyle(DEFAULT_FONT, HORIZ_DIR, 1);
+    outtextxy(420, 100, "Solid Line");
+
+    setlinestyle(DOTTED_LINE, 0, 1);
+    line(300, 150, 400, 150);
+    outtextxy(420, 150, "Dotted Line");
+
+    setlinestyle(DASHED_LINE, 0, 1);
+    line(300, 200, 400, 200);
+    outtextxy(420, 200, "Dashed Line");
+
+    /*setlinestyle(DASH_DOT_LINE, 0, 1);
+    line(300, 250, 400, 250);
+    outtextxy(420, 250, "Dash Dot Line");
+
+    setlinestyle(DASH_DOT_DOT_LINE, 0, 1);
+    line(300, 300, 400, 300);
+    outtextxy(420, 300, "Dash Dot Dot Line");*/
+
+    getch();
+    closegraph();
+    return 0;
+}
+
+
+
+
+//cosine and sine
+#include <stdio.h>
+#include <graphics.h>
+#include <math.h>
+#include <dos.h>
+#define PI 3.14159
+
+void drawsine() {
+  int x, y, i;
+  float sinevalue;
+  int maxy = getmaxy()/2;
+
+  setcolor(RED);
+  moveto(0, maxy);
+
+  for(i=0; i<=720; i+=5){
+    x = i;
+    sinevalue = sin(i*PI/180);
+    y = maxy-(int)(sinevalue*100);
+    lineto(x,y);
+  }
+  outtextxy(100, 50, "Sine Wave");
+}
+
+void drawcosine() {
+  int x, y, i;
+  float cosinevalue;
+  int maxy = getmaxy()/2;
+
+  setcolor(GREEN);
+  moveto(0, maxy);
+
+  for(i=0; i<=720; i+=5){
+    x = i;
+    cosinevalue = cos(i*PI/180);
+    y = maxy-(int)(cosinevalue*100);
+    lineto(x,y);
+  }
+  outtextxy(100, 50, "Cosine Wave");
+}
+
+int main() {
+    int gd = DETECT, gm;
+    int x1, y1, x2, y2;
+    int i;
+    initgraph(&gd, &gm, "C:\\TURBOC3\\BGI");
+
+    drawsine();
+    delay(2000);
+    cleardevice();
+    drawcosine();
+
+    getch();
+    closegraph();
+    return 0;
+}
